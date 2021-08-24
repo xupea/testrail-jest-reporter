@@ -5,7 +5,7 @@ const configPath = path.resolve(process.cwd(), DEFAULT_CONFIG_FILENAME);
 const error = chalk.bold.red;
 const warning = chalk.keyword('orange');
 const message = chalk.bold.green;
-const {baseUrl, regex, milestone, project_id, suite_mode, user, pass} = require(configPath);
+const {baseUrl, regex, milestone, milestone_id, project_id, suite_mode, user, pass, tr_session} = require(configPath);
 const Utils = require('./src/utils');
 const caller = require('./src/caller');
 
@@ -21,10 +21,12 @@ class CustomTestrailReporter {
         this._globalConfig = _globalConfig;
         this._options = {};
         this._options.milestone = _options && _options.milestone || milestone;
+        this._options.milestone_id = _options && _options.milestone_id || milestone_id;
         this._options.baseUrl = _options && _options.baseUrl || baseUrl;
         this._options.project_id = _options && _options.project_id || project_id;
         this._options.suite_mode = _options && _options.suite_mode || suite_mode;
         this._options.run_update = (_options && _options.hasOwnProperty('publish_results')) ? _options.publish_results : true;
+        this._options.cookies = "tr_session=" + tr_session;
         this._options.auth = 'Basic ' + new Buffer.from(user + ':' + pass, 'utf-8').toString('base64');
         caller.init(this._options);
         this._utils = new Utils({regex: regex || null, statuses: _options && _options.statuses});
@@ -86,10 +88,10 @@ class CustomTestrailReporter {
      * @param {string} _contexts - The Contexts of the test run
      * @param {JestTestRunResult} _results - Results from the test run
      */
-    onRunComplete(_contexts, _results) {
+    async onRunComplete(_contexts, _results) {
         if (caller._milestone_id) {
             console.log(message('Testrail Jest Reporter is updating tests results...'));
-            caller.get_tests()
+            await caller.get_tests()
                 .then(() => {
                     return caller.add_results(this.results)
                 })

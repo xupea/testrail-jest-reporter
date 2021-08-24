@@ -1,6 +1,6 @@
 {
-  "name": "testrail-jest-reporter",
-  "version": "1.1.2",
+  "name": "@xupea2021/testrail-jest-reporter",
+  "version": "1.1.17",
   "description": "Custom Jest reporter for Testrail synchronization",
   "main": "index.js",
   "engines": {
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AntonChaukin/testrail-jest-reporter.git"
+    "url": "git+https://github.com/xupea/testrail-jest-reporter.git"
   },
   "keywords": [
     "jest",
@@ -46,7 +46,7 @@
   "bugs": {
     "url": "https://github.com/AntonChaukin/testrail-jest-reporter/issues"
   },
-  "homepage": "https://github.com/AntonChaukin/testrail-jest-reporter#readme",
+  "homepage": "https://github.com/xupea/testrail-jest-reporter#readme",
   "devDependencies": {
     "faker": "^5.1.0",
     "jest": "^26.6.3"

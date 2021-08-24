@@ -92,6 +92,15 @@ module.exports = {
 }
 ```
 
+```js
+module.exports = {
+    'baseUrl': 'http://localhost',
+    'tr_session': 'tr_session_from_your_testrail_cookie',
+    'milestone': '<milestone_name>',
+    'regex': /[C][?\d]{3,6}/gm
+}
+```
+
 ##### **Important:**  If you use a public repository, please, secure your sensitive data.
 ### Enable TestRail API
 In order to use [TestRail API](http://docs.gurock.com/testrail-api2/start), it needs to be enabled by an administrator

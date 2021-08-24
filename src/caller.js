@@ -19,10 +19,15 @@ module.exports = {
 function init(_options) {
     this._baseUrl = _options.baseUrl ;
     this._milestone_name = _options.milestone;
+    this._milestone_id = _options.milestone_id;
     this._project_id = _options.project_id;
     this._suite_mode = _options.suite_mode;
     this._run_update = _options.run_update;
-    tr_api.defaults.headers['Authorization'] = _options.auth;
+    if (_options.cookies) {
+        tr_api.defaults.headers['Cookie'] = _options.cookies;
+    } else {
+        tr_api.defaults.headers['Authorization'] = _options.auth;
+    }
     tr_api.defaults.baseUrl = this._baseUrl + '/index.php?/api/v2/';
 }
 
@@ -61,7 +66,7 @@ async function add_results(testsResults) {
 }
 
 function get_milestone_id() {
-    this._milestone_id = null;
+    // this._milestone_id = null;
     return get_suite_mode.call(this)
         .then(() => tr_api.get_milestones(this._project_id, {is_completed: 0}))
         .then(res => {
